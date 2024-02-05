@@ -739,9 +739,9 @@ class Menu extends Phaser.Scene{
 
 
 class EndScene extends Phaser.Scene{
-  constructor(){
+  constructor(setPic){
     super({key: "EndScene"});
-    
+    this.setPic = setPic
   }
 
 
@@ -758,6 +758,9 @@ class EndScene extends Phaser.Scene{
             this.displayedText += text[i];
             this.dialogueText.setText(this.displayedText); // 更新文本内容
             i++;
+            if (i>=length) {
+              this.setPic(true);
+            }
         },
         callbackScope: this // 确保回调函数中的this指向当前场景对象
     });
@@ -784,7 +787,7 @@ class EndScene extends Phaser.Scene{
     // 创建对话窗文本
     this.dialogueText = this.add.text(
       100 + 10, // x position
-      40 + 60, // y position
+      30 + 60, // y position
       '', // 文本内容初始化为空
       { 
           fontSize: '20px',
@@ -802,11 +805,11 @@ class EndScene extends Phaser.Scene{
     ).setDepth(3);
 
     const bgWidth = 320;  // 根据需要设置背景的宽度
-    const bgHeight = 270; // 根据需要设置背景的高度
+    const bgHeight =340; // 根据需要设置背景的高度
     let graphics = this.add.graphics();
 
     graphics.fillRect(100, 100, bgWidth, bgHeight); // 绘制矩形作为背景
-    this.textBackground  = this.add.image(100, 40, 'textBackground').setOrigin(0, 0);
+    this.textBackground  = this.add.image(100, 0, 'textBackground').setOrigin(0, 0);
     this.textBackground .displayWidth = bgWidth;
     this.textBackground .displayHeight = bgHeight;
     this.textBackground .setDepth(2);
@@ -816,13 +819,13 @@ class EndScene extends Phaser.Scene{
     const isGameOver = this.registry.get("isGameOver");
 
     if (!isGameOver) {
-      this.startDialogue(`恭喜通過考驗\n我們非常歡迎你\n這個網頁所用到的素材\n大多都是由ＡＩ生成\n如果你也對這些技術感興趣\n就加入我們吧！！！！！！`);
+      this.startDialogue(`恭喜通過考驗\n我們非常歡迎你\n這個網頁所用到的素材\n大多都是由ＡＩ生成\n如果你也對這些技術感興趣\n就加入我們吧！\n最後我們拍張照留戀吧!`);
     }else{
-      this.startDialogue(`非常可惜還差${battleInfo}秒\n但我們還是很歡迎你\n這個網頁所用到的素材\n大多都是由ＡＩ生成\n如果你也對這些技術感興趣\n就加入我們吧！！！！！！`);
+      this.startDialogue(`非常可惜還差${battleInfo}秒\n但我們還是很歡迎你\n這個網頁所用到的素材\n大多都是由ＡＩ生成\n如果你也對這些技術感興趣\n就加入我們吧！n最後我們拍張照留戀吧!`);
     }
     
     
-    this.master = this.add.image(100,300,'master').setOrigin(0,0);
+    this.master = this.add.image(100,350,'master').setOrigin(0,0);
     this.master.setScale(0.5);
 
 
@@ -884,7 +887,7 @@ class EndScene extends Phaser.Scene{
 }
   
 
-function MainGame({ setIsDark,setImgName,setImgText }) {
+function MainGame({ setIsDark,setPic,setImgName,setImgText }) {
   const gameRef = useRef(null);
   const [battleInfo,setBattleInfo] = useState();
   useEffect(() => {
@@ -900,7 +903,7 @@ function MainGame({ setIsDark,setImgName,setImgText }) {
           debug: false
         }
       },
-      scene: [new Menu(),new EndScene(),new SceneThree(setIsDark,setImgName,setImgText),new MainScene(setIsDark,setImgName),new SceneTow(setIsDark,setImgName,setImgText)] // 创建场景实例并传递 setIsDark 方法
+      scene: [new EndScene(setPic),new Menu(),new SceneThree(setIsDark,setImgName,setImgText),new MainScene(setIsDark,setImgName),new SceneTow(setIsDark,setImgName,setImgText)] // 创建场景实例并传递 setIsDark 方法
     };
 
     gameRef.current = new Phaser.Game(config);

@@ -30,6 +30,7 @@ body {
 }
 
 
+
 .schoolImg.hovered{
     width: 500px;
     height: auto;
@@ -115,4 +116,74 @@ body {
 .bar{
     width: 100%;
     height: 300px;
+}
+
+@keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.video{
+    width: 70%;
+    height: auto;
+}
+.canvas{
+    width: 70%;
+    height: auto;
+}
+.canvas.flash {
+    animation: flash 0.5s;
+}
+
+.picDiv{
+    width: 0px;
+    height: 0px;
+    left: 60%;
+    top: 20%;
+    transition: height .3s, width .7s, background-color 1.5s, opacity 1.2s;
+}
+.picDiv.hovered{
+    width: 400px;
+    height: auto;
+    background: linear-gradient(45deg,#0ae24b,#01896e,#1b4de3);
+    margin-top: 10px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    opacity: 1;
+    padding: 15px;
+    right: 30px;
+   
+}
+.camaraContent {
+    
+    display: flex; /* 啟用 Flexbox */
+    flex-direction: column; /* 子元素垂直排列 */
+    justify-content: center; /* 垂直居中 */
+    align-items: center; /* 水平居中 */
+    width: 400px;
+    height: 250px; /* 如果需要，確保佔滿整個父容器的高度 */
+}
+.btnDiv {
+    display: flex; /* 启用 Flexbox */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+}
+
+.capture {
+    cursor: pointer; /* 鼠标悬停时显示指针 */
+    width: 10%;
+    height: auto;
+}
+.capture:hover{
+    background-color: #ccc;
+}
+.camaraDiv{
+    display: contents;
+}
+.camaraDiv, .btnDiv {
+    margin: 10px; /* 為了一些間距 */
 }
